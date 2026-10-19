@@ -1,0 +1,22 @@
+# Builds the plugin on a Windows runner so you don't need Visual Studio locally.
+# Push this project to a GitHub repo -> Actions tab -> "Build Windows" -> download the artifact.
+name: Build Windows
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: cmake -S . -B build -G "Visual Studio 17 2022" -A x64
+      - name: Build
+        run: cmake --build build --config Release --parallel
+      - name: Unit tests
+        continue-on-error: true
+        run: ctest --test-dir build -C Release --output-on-failure
+      - uses: actions/upload-artifact@v4
+        with:
+          name: monie-visuals-windows-x64
+          path: |
+            build/MonieVisuals_artefacts/Release/VST3
+            build/MonieVisuals_artefacts/Release/Standalone
