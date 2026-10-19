@@ -1,0 +1,11 @@
+1
+00:00:04,000 --> 00:00:07,500
+Placeholder line number one
+
+2
+00:00:08,000 --> 00:00:11,500
+This is only sample text
+
+3
+00:00:12,500 --> 00:00:15,500
+Second verse starts here
